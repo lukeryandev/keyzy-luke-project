@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400&display=swap");
+$primary: rgb(38, 48, 67);
+$secondary: rgb(243, 146, 55);
+$warning: rgb(191, 19, 99);
+$success: rgb(14, 121, 178);
+$background: rgb(251, 255, 241);
+
+.container {
+  background-color: $background;
+  padding: 0;
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+}
