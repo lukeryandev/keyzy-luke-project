@@ -6,6 +6,8 @@ import styles from "../styles/Calculator.module.scss";
 
 const Calculator = () => {
   const [form, setForm] = useState({ postcode: "", income: 0, term: 0, growth: 3.5 });
+  const { income } = form;
+  let times = 6.99;
 
   const marks = [
     {
@@ -36,10 +38,6 @@ const Calculator = () => {
 
     console.log(form);
   };
-
-  const { income } = form;
-  console.log(income);
-  let times = 6.99;
 
   function maxBudget() {
     let amount = income * times;
