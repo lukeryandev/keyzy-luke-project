@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CurrencyInput from "react-currency-input-field";
-// import NumberFormat from "react-number-format";
 import Slider from "@mui/material/Slider";
 import styles from "../styles/Calculator.module.scss";
 
@@ -70,19 +69,6 @@ const Calculator = () => {
                 onChange={onChange}
                 className={styles.row}
               />
-              {/* <NumberFormat
-                className={styles.row}
-                name="income"
-                thousandsGroupStyle="thousand"
-                prefix="£"
-                decimalSeparator="."
-                displayType="input"
-                type="number"
-                thousandSeparator={true}
-                allowNegative={false}
-                isNumericString={true}
-                onChange={onChange}
-              /> */}
             </li>
             <li className={styles.row}>
               <label>
