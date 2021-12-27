@@ -36,7 +36,7 @@ const Calculator = () => {
     return `${value} %`;
   }
 
-  const onChange = (e) => {
+  const stringChange = (e) => {
     const { name, value } = e.target;
 
     setForm((prevFormValues) => ({
@@ -44,6 +44,22 @@ const Calculator = () => {
       [name]: value,
     }));
 
+    console.log(form);
+  };
+
+  const numChange = (e) => {
+    const { name, value } = e.target;
+
+    if (parseInt(value) === NaN) {
+      setForm((prevFormValues) => ({
+        ...prevFormValues,
+      }));
+    } else {
+      setForm((prevFormValues) => ({
+        ...prevFormValues,
+        [name]: value,
+      }));
+    }
     console.log(form);
   };
 
@@ -106,7 +122,8 @@ const Calculator = () => {
                 name="postcode"
                 type="text"
                 maxLength={4}
-                onChange={onChange}
+                onChange={stringChange}
+                value={form.postcode}
               ></input>
             </li>
             <li className={styles.row}>
@@ -118,7 +135,8 @@ const Calculator = () => {
                 placeholder="0"
                 min="25000"
                 max="1000000"
-                onChange={onChange}
+                onChange={numChange}
+                value={form.income}
               ></input>
             </li>
             <li className={styles.row}>
@@ -127,13 +145,31 @@ const Calculator = () => {
                 How long do you
                 want?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </label>
-              <button name="term" type="button" className={styles.btn} onClick={onChange} value="3">
+              <button
+                name="term"
+                type="button"
+                className={styles.btn}
+                onClick={stringChange}
+                value="3"
+              >
                 3 years
               </button>
-              <button name="term" type="button" className={styles.btn} onClick={onChange} value="5">
+              <button
+                name="term"
+                type="button"
+                className={styles.btn}
+                onClick={stringChange}
+                value="5"
+              >
                 5 years
               </button>
-              <button name="term" type="button" className={styles.btn} onClick={onChange} value="7">
+              <button
+                name="term"
+                type="button"
+                className={styles.btn}
+                onClick={stringChange}
+                value="7"
+              >
                 7 years
               </button>
             </li>
@@ -150,7 +186,8 @@ const Calculator = () => {
                 step={0.1}
                 marks={marks}
                 valueLabelDisplay="on"
-                onChange={onChange}
+                onChange={numChange}
+                value={form.growth}
               />
             </li>
           </form>
