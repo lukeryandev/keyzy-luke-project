@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import CurrencyInput from "react-currency-input-field";
+import CurrencyInput, { formatValue } from "react-currency-input-field";
 import Slider from "@mui/material/Slider";
 import styles from "../styles/Calculator.module.scss";
 
 const Calculator = () => {
-  const [form, setForm] = useState({ postcode: "", income: 0, term: 0, growth: 3.5 });
-  const { income } = form;
-  let times = 6.99;
-
+  const [form, setForm] = useState({ postcode: "", income: "0", term: 0, growth: 3.5 });
+  const { income, term, growth } = form;
   const marks = [
     {
       value: -1,
@@ -22,6 +20,17 @@ const Calculator = () => {
       label: "7.5%",
     },
   ];
+  const productFee = 2999;
+  let incomeMultiplier = 6.99;
+  let maxAmount = parseInt(income) * incomeMultiplier;
+  let monthlyAmount = ((parseInt(income) * incomeMultiplier) / 12) * 0.045;
+  let projValue = maxAmount * (1 + growth) ** term;
+  let convertedRent = 0.25 * monthlyAmount * (term * 12);
+  let totalPayment = projValue - convertedRent;
+  let formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "GBP",
+  });
 
   function valueText(value, index) {
     return `${value} %`;
@@ -38,8 +47,51 @@ const Calculator = () => {
     console.log(form);
   };
 
-  function maxBudget() {
-    let amount = income * times;
+  function maxBudget(maxAmount) {
+    if (isNaN(maxAmount)) {
+      return "£0";
+    } else {
+      return formatter.format(maxAmount);
+    }
+  }
+
+  function monthlyCost(monthlyAmount) {
+    if (isNaN(monthlyAmount)) {
+      return "£0";
+    } else {
+      return formatter.format(monthlyAmount);
+    }
+  }
+
+  function projectedValue(projValue) {
+    if (!maxAmount || !term) {
+      return "Please enter details";
+    } else if (isNaN(projValue)) {
+      return "£0";
+    } else {
+      return formatter.format(projValue);
+    }
+  }
+
+  function totalRent(convertedRent) {
+    if (!maxAmount || !term) {
+      return "Please enter details";
+    } else if (isNaN(convertedRent)) {
+      return "£0";
+    } else {
+      return formatter.format(convertedRent);
+    }
+  }
+
+  function overallPayment(totalPayment) {
+    totalPayment = projValue - convertedRent;
+    if (!maxAmount || !term) {
+      return "Please enter details";
+    } else if (isNaN(totalPayment)) {
+      return "£0";
+    } else {
+      return formatter.format(totalPayment);
+    }
   }
 
   return (
@@ -59,16 +111,15 @@ const Calculator = () => {
             </li>
             <li className={styles.row}>
               <label>What is your annual income?</label>
-              <CurrencyInput
+              <input
+                type="number"
                 name="income"
-                placeholder="£25000"
-                defaultValue={25000}
-                decimalsLimit={2}
-                maxLength={8}
-                step={1000}
-                onChange={onChange}
                 className={styles.row}
-              />
+                placeholder="0"
+                min="25000"
+                max="1000000"
+                onChange={onChange}
+              ></input>
             </li>
             <li className={styles.row}>
               <label>
@@ -79,24 +130,10 @@ const Calculator = () => {
               <button name="term" type="button" className={styles.btn} onClick={onChange} value="3">
                 3 years
               </button>
-              <button
-                name="term"
-                type="button"
-                className={styles.btn}
-                onChange={onChange}
-                onClick={onChange}
-                value="5"
-              >
+              <button name="term" type="button" className={styles.btn} onClick={onChange} value="5">
                 5 years
               </button>
-              <button
-                name="term"
-                type="button"
-                className={styles.btn}
-                onChange={onChange}
-                onClick={onChange}
-                value="7"
-              >
+              <button name="term" type="button" className={styles.btn} onClick={onChange} value="7">
                 7 years
               </button>
             </li>
@@ -121,17 +158,17 @@ const Calculator = () => {
       </div>
       <div className={styles.result}>
         <span>
-          Based on the postcode {form.postcode}, an income of {form.income}, a term of {""}
+          Based on the postcode {form.postcode}, an income of £{form.income}, a term of {""}
           {form.term} years and an assumed price growth of {form.growth}%:
         </span>
         <br />
         <ul>
-          <li>Maximum Budget: {maxBudget()}</li>
-          <li>Monthly Cost:</li>
-          <li>Product Fee:</li>
-          <li>Projected Value:</li>
-          <li>Rent Covered:</li>
-          <li>Total Payment:</li>
+          <li>Maximum Budget: {maxBudget(maxAmount)}</li>
+          <li>Monthly Cost: {monthlyCost(monthlyAmount)}</li>
+          <li>Product Fee: £{productFee}</li>
+          <li>Projected Value: {projectedValue(projValue)}</li>
+          <li>Total Rent Covered: {totalRent(convertedRent)}</li>
+          <li>Total Payment: {overallPayment(totalPayment)}</li>
         </ul>
       </div>
     </div>
