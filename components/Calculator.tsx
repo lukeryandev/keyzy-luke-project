@@ -63,50 +63,21 @@ const Calculator = () => {
     console.log(form);
   };
 
-  function maxBudget(maxAmount) {
-    if (isNaN(maxAmount)) {
+  function renderValue(value) {
+    if (isNaN(value)) {
       return "£0";
     } else {
-      return formatter.format(maxAmount);
+      return formatter.format(value);
     }
   }
 
-  function monthlyCost(monthlyAmount) {
-    if (isNaN(monthlyAmount)) {
-      return "£0";
-    } else {
-      return formatter.format(monthlyAmount);
-    }
-  }
-
-  function projectedValue(projValue) {
+  function renderDetail(value) {
     if (!maxAmount || !term) {
       return "Please enter details";
-    } else if (isNaN(projValue)) {
+    } else if (isNaN(value)) {
       return "£0";
     } else {
-      return formatter.format(projValue);
-    }
-  }
-
-  function totalRent(convertedRent) {
-    if (!maxAmount || !term) {
-      return "Please enter details";
-    } else if (isNaN(convertedRent)) {
-      return "£0";
-    } else {
-      return formatter.format(convertedRent);
-    }
-  }
-
-  function overallPayment(totalPayment) {
-    totalPayment = projValue - convertedRent;
-    if (!maxAmount || !term) {
-      return "Please enter details";
-    } else if (isNaN(totalPayment)) {
-      return "£0";
-    } else {
-      return formatter.format(totalPayment);
+      return formatter.format(value);
     }
   }
 
@@ -121,6 +92,7 @@ const Calculator = () => {
                 className={styles.row}
                 name="postcode"
                 type="text"
+                minLength={3}
                 maxLength={4}
                 onChange={stringChange}
                 value={form.postcode}
@@ -200,12 +172,12 @@ const Calculator = () => {
         </span>
         <br />
         <ul>
-          <li>Maximum Budget: {maxBudget(maxAmount)}</li>
-          <li>Monthly Cost: {monthlyCost(monthlyAmount)}</li>
+          <li>Maximum Budget: {renderValue(maxAmount)}</li>
+          <li>Monthly Cost: {renderValue(monthlyAmount)}</li>
           <li>Product Fee: £{productFee}</li>
-          <li>Projected Value: {projectedValue(projValue)}</li>
-          <li>Total Rent Covered: {totalRent(convertedRent)}</li>
-          <li>Total Payment: {overallPayment(totalPayment)}</li>
+          <li>Projected Value: {renderDetail(projValue)}</li>
+          <li>Total Rent Covered: {renderDetail(convertedRent)}</li>
+          <li>Total Payment: {renderDetail(totalPayment)}</li>
         </ul>
       </div>
     </div>
