@@ -3,6 +3,8 @@ import CurrencyInput, { formatValue } from "react-currency-input-field";
 import Slider from "@mui/material/Slider";
 import styles from "../styles/Calculator.module.scss";
 
+type form = { postcode: string; income: string; term: number; growth: number };
+
 const Calculator = () => {
   const [form, setForm] = useState({ postcode: "", income: "", term: 0, growth: 3.5 });
   const { postcode, income, term, growth } = form;
