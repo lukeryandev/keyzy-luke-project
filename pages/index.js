@@ -15,8 +15,8 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Keyzy: A project by Luke Ryan</h1>
         <p className={styles.description}>
-          {/* add github link */}
-          Please find the repository at <a href="#">@lukeryandev</a>
+          Please find the repository at{" "}
+          <a href="https://github.com/lukeryandev/keyzy-luke-project">@lukeryandev</a>
         </p>
         <div className={styles.grid}>
           <Calculator />

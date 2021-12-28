@@ -8,6 +8,10 @@
   width: 80vw;
 }
 
+.test input {
+  margin-right: 20vw;
+}
+
 .inputForm {
   display: flex;
   flex-direction: row;
@@ -59,6 +63,7 @@
 
 .row label {
   float: left;
+  margin-right: 2vw;
 }
 
 .row input::-webkit-outer-spin-button,
@@ -101,6 +106,10 @@
 .btn:visited {
   background-color: $success;
   color: $background;
+}
+
+.test label {
+  margin-right: 10vw;
 }
 
 .submit {

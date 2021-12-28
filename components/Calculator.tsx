@@ -4,8 +4,8 @@ import Slider from "@mui/material/Slider";
 import styles from "../styles/Calculator.module.scss";
 
 const Calculator = () => {
-  const [form, setForm] = useState({ postcode: "", income: "0", term: 0, growth: 3.5 });
-  const { income, term, growth } = form;
+  const [form, setForm] = useState({ postcode: "", income: "", term: 0, growth: 3.5 });
+  const { postcode, income, term, growth } = form;
   const marks = [
     {
       value: -1,
@@ -20,7 +20,6 @@ const Calculator = () => {
       label: "7.5%",
     },
   ];
-  const productFee = 2999;
   let incomeMultiplier = 6.99;
   let maxAmount = parseInt(income) * incomeMultiplier;
   let monthlyAmount = ((parseInt(income) * incomeMultiplier) / 12) * 0.045;
@@ -31,6 +30,14 @@ const Calculator = () => {
     style: "currency",
     currency: "GBP",
   });
+  const productFee = formatter.format(2999);
+
+  const blockInvalidChar = (e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+
+  // function limiter(input) {
+  //   if (input.value < 25000) input.value = 25000;
+  //   if (input.value > 1000000) input.value = 1000000;
+  // }
 
   function valueText(value, index) {
     return `${value} %`;
@@ -95,7 +102,7 @@ const Calculator = () => {
                 minLength={3}
                 maxLength={4}
                 onChange={stringChange}
-                value={form.postcode}
+                value={form.postcode.toUpperCase()}
               ></input>
             </li>
             <li className={styles.row}>
@@ -104,19 +111,15 @@ const Calculator = () => {
                 type="number"
                 name="income"
                 className={styles.row}
-                placeholder="0"
                 min="25000"
                 max="1000000"
                 onChange={numChange}
+                onKeyDown={blockInvalidChar}
                 value={form.income}
               ></input>
             </li>
             <li className={styles.row}>
-              <label>
-                {" "}
-                How long do you
-                want?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              </label>
+              <label className={styles.test}> How long do you want?</label>
               <button
                 name="term"
                 type="button"
@@ -167,14 +170,15 @@ const Calculator = () => {
       </div>
       <div className={styles.result}>
         <span>
-          Based on the postcode {form.postcode}, an income of £{form.income}, a term of {""}
+          Based on the postcode {form.postcode}, an income of {formatter.format(parseFloat(income))}
+          , a term of {""}
           {form.term} years and an assumed price growth of {form.growth}%:
         </span>
         <br />
         <ul>
           <li>Maximum Budget: {renderValue(maxAmount)}</li>
           <li>Monthly Cost: {renderValue(monthlyAmount)}</li>
-          <li>Product Fee: £{productFee}</li>
+          <li>Product Fee: {productFee}</li>
           <li>Projected Value: {renderDetail(projValue)}</li>
           <li>Total Rent Covered: {renderDetail(convertedRent)}</li>
           <li>Total Payment: {renderDetail(totalPayment)}</li>
