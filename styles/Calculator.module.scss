@@ -8,10 +8,6 @@
   width: 80vw;
 }
 
-.test input {
-  margin-right: 20vw;
-}
-
 .inputForm {
   display: flex;
   flex-direction: row;
@@ -43,6 +39,7 @@
   padding-bottom: 20px;
   margin-left: 0;
 }
+
 .row input {
   display: flex;
   flex-direction: row;
@@ -63,7 +60,7 @@
 
 .row label {
   float: left;
-  margin-right: 2vw;
+  margin-right: 3vw;
 }
 
 .row input::-webkit-outer-spin-button,
@@ -96,34 +93,24 @@
   width: 60px;
   margin-left: 1vw;
   cursor: pointer;
+  &_prim {
+    margin-left: 4vw;
+    border-radius: 0;
+    height: 40px;
+    width: 60px;
+    margin-left: 4vw;
+    cursor: pointer;
+  }
 }
 
-.btn:focus {
+.btn:focus,
+.btn_prim:focus {
   background-color: $success;
   color: $background;
 }
 
-.btn:visited {
-  background-color: $success;
-  color: $background;
-}
-
-.test label {
-  margin-right: 10vw;
-}
-
-.submit {
-  border-radius: 0;
-  height: 5vh;
-  width: 12vw;
-  margin-left: 16vw;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid $background;
-}
-
-.submit:focus {
+.btn:visited,
+.btn_prim:visited {
   background-color: $success;
   color: $background;
 }

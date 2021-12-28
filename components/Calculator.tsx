@@ -34,11 +34,6 @@ const Calculator = () => {
 
   const blockInvalidChar = (e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
-  // function limiter(input) {
-  //   if (input.value < 25000) input.value = 25000;
-  //   if (input.value > 1000000) input.value = 1000000;
-  // }
-
   function valueText(value, index) {
     return `${value} %`;
   }
@@ -116,6 +111,7 @@ const Calculator = () => {
                 onChange={numChange}
                 onKeyDown={blockInvalidChar}
                 value={form.income}
+                required
               ></input>
             </li>
             <li className={styles.row}>
@@ -123,7 +119,7 @@ const Calculator = () => {
               <button
                 name="term"
                 type="button"
-                className={styles.btn}
+                className={styles.btn_prim}
                 onClick={stringChange}
                 value="3"
               >

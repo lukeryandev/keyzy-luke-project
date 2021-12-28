@@ -11,8 +11,7 @@ export default function Home() {
         <meta name="description" content="Project from Luke Ryan on behalf of Keyzy." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
+      <div className={styles.main}>
         <h1 className={styles.title}>Keyzy: A project by Luke Ryan</h1>
         <p className={styles.description}>
           Please find the repository at{" "}
@@ -21,9 +20,8 @@ export default function Home() {
         <div className={styles.grid}>
           <Calculator />
         </div>
-      </main>
-
-      <footer className={styles.footer}>Luke Ryan © </footer>
+        <footer className={styles.footer}>Luke Ryan © </footer>
+      </div>
     </div>
   );
 }
